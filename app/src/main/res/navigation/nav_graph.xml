@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_start">
+
+    <fragment
+        android:id="@+id/navigation_start"
+        android:name="cz.cvut.fit.poberboh.loc_tracker.ui.basic.StartFragment"
+        android:label="@string/title_start"
+        tools:layout="@layout/fragment_start">
+
+        <action
+            android:id="@+id/action_start_to_map"
+            app:destination="@id/navigation_map" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="cz.cvut.fit.poberboh.loc_tracker.ui.basic.MapFragment"
+        android:label="@string/title_map"
+        tools:layout="@layout/fragment_map" />
+
+</navigation>
