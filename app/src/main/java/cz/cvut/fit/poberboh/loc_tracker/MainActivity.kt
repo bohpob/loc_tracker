@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         fiveGIcon = findViewById(R.id.fiveGIcon)
+        fiveGIcon.setImageResource(0)
         requestPermissionsIfNecessary()
         setupTelephonyManager()
     }
