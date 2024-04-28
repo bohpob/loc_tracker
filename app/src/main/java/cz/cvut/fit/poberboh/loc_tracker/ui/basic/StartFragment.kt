@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import cz.cvut.fit.poberboh.loc_tracker.R
+import cz.cvut.fit.poberboh.loc_tracker.databinding.FragmentStartBinding
+import cz.cvut.fit.poberboh.loc_tracker.repository.BaseRepository
+import cz.cvut.fit.poberboh.loc_tracker.repository.StartRepository
+import cz.cvut.fit.poberboh.loc_tracker.ui.base.BaseFragment
 
-class StartFragment : Fragment() {
+class StartFragment : BaseFragment<StartViewModel, FragmentStartBinding, BaseRepository>() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,4 +26,10 @@ class StartFragment : Fragment() {
         }
         return view
     }
+
+    override fun getViewModel() = StartViewModel::class.java
+    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentStartBinding.inflate(inflater, container, false)
+
+    override fun getFragmentRepository() = StartRepository()
 }

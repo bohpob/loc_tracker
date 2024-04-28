@@ -10,10 +10,11 @@ import androidx.viewbinding.ViewBinding
 import cz.cvut.fit.poberboh.loc_tracker.network.RemoteDataSource
 import cz.cvut.fit.poberboh.loc_tracker.repository.BaseRepository
 
-abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding, R : BaseRepository> : Fragment() {
+abstract class BaseFragment<BVM : BaseViewModel, VB : ViewBinding, BR : BaseRepository> :
+    Fragment() {
 
-    protected lateinit var binding: B
-    protected lateinit var viewModel: VM
+    protected lateinit var binding: VB
+    protected lateinit var viewModel: BVM
     protected val remoteDataSource = RemoteDataSource()
 
     override fun onCreateView(
@@ -27,9 +28,9 @@ abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding, R : BaseReposit
         return binding.root
     }
 
-    abstract fun getViewModel(): Class<VM>
+    abstract fun getViewModel(): Class<BVM>
 
-    abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): B
+    abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): VB
 
-    abstract fun getFragmentRepository(): R
+    abstract fun getFragmentRepository(): BR
 }

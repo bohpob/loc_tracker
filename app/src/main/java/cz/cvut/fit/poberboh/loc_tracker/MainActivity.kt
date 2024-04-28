@@ -2,22 +2,57 @@ package cz.cvut.fit.poberboh.loc_tracker
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.telephony.TelephonyCallback
+import android.telephony.TelephonyDisplayInfo
+import android.telephony.TelephonyManager
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var telephonyManager: TelephonyManager
+    private lateinit var fiveGIcon: ImageView
     private val requestPermissionsCode = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        fiveGIcon = findViewById(R.id.fiveGIcon)
         requestPermissionsIfNecessary()
+        setupTelephonyManager()
     }
+
+    private fun setupTelephonyManager() {
+        telephonyManager = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            telephonyManager.registerTelephonyCallback(mainExecutor, object : TelephonyCallback(),
+                TelephonyCallback.DisplayInfoListener {
+                override fun onDisplayInfoChanged(displayInfo: TelephonyDisplayInfo) {
+                    updateNetworkIcon(displayInfo.networkType)
+                }
+            })
+        }
+    }
+
+    private fun updateNetworkIcon(state: Int) {
+        val is5GNetwork = when (state) {
+            TelephonyManager.NETWORK_TYPE_NR,
+            TelephonyDisplayInfo.OVERRIDE_NETWORK_TYPE_LTE_ADVANCED_PRO,
+            TelephonyDisplayInfo.OVERRIDE_NETWORK_TYPE_NR_NSA,
+            TelephonyDisplayInfo.OVERRIDE_NETWORK_TYPE_NR_ADVANCED -> true
+
+            else -> false
+        }
+
+        fiveGIcon.setImageResource(if (is5GNetwork) R.drawable.twotone_5g else 0)
+    }
+
 
     private fun requestPermissionsIfNecessary() {
         val permissions = arrayOf(
@@ -25,7 +60,8 @@ class MainActivity : AppCompatActivity() {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_NETWORK_STATE,
             Manifest.permission.ACCESS_WIFI_STATE,
-            Manifest.permission.INTERNET
+            Manifest.permission.INTERNET,
+            Manifest.permission.READ_PHONE_STATE
         )
 
         val permissionsToRequest = ArrayList<String>()
