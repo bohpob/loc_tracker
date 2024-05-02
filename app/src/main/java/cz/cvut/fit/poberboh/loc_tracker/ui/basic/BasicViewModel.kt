@@ -17,7 +17,7 @@ class BasicViewModel(private val repository: BasicRepository) : BaseViewModel(re
     private val _incidents: MutableLiveData<Resource<List<LocationResponse>>> = MutableLiveData()
 
     private var timer: Timer? = null
-    private val incidentsUpdateInterval = 2000L
+    private val incidentsUpdateInterval = 1000L
 
     val incidents: LiveData<Resource<List<LocationResponse>>> get() = _incidents
 
@@ -32,7 +32,7 @@ class BasicViewModel(private val repository: BasicRepository) : BaseViewModel(re
 
     fun startIncidentsUpdate() {
         timer = Timer()
-        timer?.scheduleAtFixedRate(object : TimerTask() {
+        timer?.schedule(object : TimerTask() {
             override fun run() {
                 getIncidents()
             }
