@@ -33,10 +33,13 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
  * Fragment class for the map screen of the application.
  */
 class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding, MapRepository>() {
-
+    // GpsMyLocationProvider to provide location updates
     private lateinit var myLocationProvider: GpsMyLocationProvider
+    // MyLocationNewOverlay to show the user's current location on the map
     private lateinit var myLocationOverlay: MyLocationNewOverlay
+    // MapView to display the map
     private lateinit var mapView: MapView
+    // Drawable for the incident icon
     private lateinit var incidentIcon : Drawable
 
     // Location update interval in milliseconds
