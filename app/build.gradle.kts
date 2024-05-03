@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.dokka)
 }
 
 android {
@@ -18,14 +19,20 @@ android {
     }
 
     buildTypes {
+        // Release build configuration
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
-            buildConfigField("String", "BASE_URL", "\"http://192.168.0.104:8080\"")
+
+            // Define BASE_URL build configuration field for release build
+            buildConfigField("String", "BASE_URL", "\"http://178.128.202.70:8080\"")
         }
+        // Debug build configuration
         debug {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
+
+            // Define BASE_URL build configuration field for debug build
             buildConfigField("String", "BASE_URL", "\"http://192.168.0.104:8080\"")
         }
     }
@@ -43,6 +50,10 @@ android {
         buildConfig = true
         viewBinding = true
     }
+}
+
+subprojects {
+    apply(plugin = "org.jetbrains.dokka")
 }
 
 dependencies {

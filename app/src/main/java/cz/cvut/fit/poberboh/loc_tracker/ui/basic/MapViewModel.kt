@@ -5,22 +5,31 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import cz.cvut.fit.poberboh.loc_tracker.network.Resource
 import cz.cvut.fit.poberboh.loc_tracker.network.responses.LocationResponse
-import cz.cvut.fit.poberboh.loc_tracker.repository.BasicRepository
+import cz.cvut.fit.poberboh.loc_tracker.repository.MapRepository
 import cz.cvut.fit.poberboh.loc_tracker.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 import org.osmdroid.util.GeoPoint
 import java.util.Timer
 import java.util.TimerTask
 
-class BasicViewModel(private val repository: BasicRepository) : BaseViewModel(repository) {
+/**
+ * ViewModel class for the MapFragment.
+ * @param repository The repository associated with this ViewModel.
+ */
+class MapViewModel(private val repository: MapRepository) : BaseViewModel(repository) {
     private val _location: MutableLiveData<GeoPoint> = MutableLiveData()
     private val _incidents: MutableLiveData<Resource<List<LocationResponse>>> = MutableLiveData()
 
+    // Timer for fetching incidents
     private var timer: Timer? = null
+    // Update interval for fetching incidents in milliseconds
     private val incidentsUpdateInterval = 1000L
 
     val incidents: LiveData<Resource<List<LocationResponse>>> get() = _incidents
 
+    /**
+     * Fetches the incidents data from the repository based on the current location.
+     */
     private fun getIncidents() = viewModelScope.launch {
         if (_location.value != null) {
             _incidents.value = repository.getIncidents(
@@ -30,6 +39,9 @@ class BasicViewModel(private val repository: BasicRepository) : BaseViewModel(re
         }
     }
 
+    /**
+     * Starts updating the incidents periodically.
+     */
     fun startIncidentsUpdate() {
         timer = Timer()
         timer?.schedule(object : TimerTask() {
@@ -39,6 +51,10 @@ class BasicViewModel(private val repository: BasicRepository) : BaseViewModel(re
         }, incidentsUpdateInterval, incidentsUpdateInterval)
     }
 
+    /**
+     * Updates the current location.
+     * @param point The new location.
+     */
     fun updateCurrentLocation(point: GeoPoint) = viewModelScope.launch {
         _location.value = point
     }

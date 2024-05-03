@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions required by the application -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
@@ -22,11 +23,15 @@
         android:theme="@style/Theme.LocTracker"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <!-- Main activity of the application -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:hardwareAccelerated="true"
             android:screenOrientation="userPortrait">
+
+            <!-- Intent filter for launching the main activity -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

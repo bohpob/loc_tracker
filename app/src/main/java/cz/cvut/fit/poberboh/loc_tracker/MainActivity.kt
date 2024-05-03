@@ -15,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
+/**
+ * Main activity class responsible for managing the application's UI and functionality.
+ */
 class MainActivity : AppCompatActivity() {
     private lateinit var telephonyManager: TelephonyManager
     private lateinit var fiveGIcon: ImageView
@@ -23,14 +26,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Initialize the 5G icon view
         fiveGIcon = findViewById(R.id.fiveGIcon)
         fiveGIcon.setImageResource(0)
+
+        // Request necessary permissions if not already granted
         requestPermissionsIfNecessary()
+
+        // Setup TelephonyManager for network monitoring
         setupTelephonyManager()
     }
 
+    /**
+     * Set up the TelephonyManager for monitoring network information.
+     */
     private fun setupTelephonyManager() {
         telephonyManager = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
+
+        // Register TelephonyCallback for getting network information
+        // This is only available on Android 12 (API level 31) and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             telephonyManager.registerTelephonyCallback(mainExecutor, object : TelephonyCallback(),
                 TelephonyCallback.DisplayInfoListener {
@@ -41,7 +56,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Updates the network icon based on the network type.
+     * @param state The network type.
+     */
     private fun updateNetworkIcon(state: Int) {
+        // Determine if the network is 5G
         val is5GNetwork = when (state) {
             TelephonyManager.NETWORK_TYPE_NR,
             TelephonyDisplayInfo.OVERRIDE_NETWORK_TYPE_LTE_ADVANCED_PRO,
@@ -51,10 +71,13 @@ class MainActivity : AppCompatActivity() {
             else -> false
         }
 
+        // Set the icon image based on the network type
         fiveGIcon.setImageResource(if (is5GNetwork) R.drawable.twotone_5g else 0)
     }
 
-
+    /**
+     * Requests necessary permissions if not already granted.
+     */
     private fun requestPermissionsIfNecessary() {
         val permissions = arrayOf(
             Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -82,6 +105,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Handles the results of permission request.
+     */
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -91,11 +117,15 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == requestPermissionsCode) {
             val allPermissionsGranted = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
             if (!allPermissionsGranted) {
+                // Show permission denied message and finish the activity after some delay
                 showPermissionDeniedMessageAndFinish()
             }
         }
     }
 
+    /**
+     * Shows a toast message for permission denial and finishes the activity after a delay.
+     */
     private fun showPermissionDeniedMessageAndFinish() {
         Toast.makeText(this, "Permissions not granted", Toast.LENGTH_LONG).show()
         Handler(Looper.getMainLooper()).postDelayed({ finish() }, 2500)
