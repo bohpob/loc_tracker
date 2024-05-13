@@ -1,0 +1,15 @@
+In accordance with Section 2373(2) of Act No. 89/2012 Coll., Civil Code, as amended, I hereby grant a non-exclusive
+authorisation (licence) to use this copyright work, including all computer programs and all their documentation
+(hereinafter collectively referred to as "the Work"), to all persons who wish to use the Work. Such persons shall be
+entitled to use the Work in any manner that does not diminish the value of the Work, but only for non-profit purposes.
+This authorisation is unlimited in time, territory and quantity.
+
+This work is entirely unrelated to the OsmAnd company, and it is neither endorsed nor affiliated with it.
+Elements associated with OsmAnd utilized in this work are governed by the following licenses:
+- Creative Commons Attribution-NonCommercial-NoDerivs 4.0 International (CC BY-NC-ND 4.0)
+- GNU GENERAL PUBLIC LICENSE v3.0 (GPLv3)
+
+Detailed information about these licenses can be found at:
+Title: OsmAnd Maps & Navigation
+Link to license https://github.com/osmandapp/Osmand/blob/master/LICENSE
+These materials will be used exclusively for non-commercial purposes.
