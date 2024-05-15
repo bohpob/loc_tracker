@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.2"
+hamcrestLibrary = "2.2"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -10,6 +11,8 @@ material = "1.12.0"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
 mockitoKotlin = "2.0.0-alpha01"
+mockk = "1.12.0"
+mockwebserver = "4.9.1"
 navigationFragmentKtx = "2.7.7"
 navigationUiKtx = "2.7.7"
 coroutines = "1.8.1"
@@ -18,9 +21,12 @@ okhttp3Version = "4.12.0"
 osmdroidVersion = "6.1.18"
 preferenceVersion = "1.2.1"
 dokkaGradlePlugin = "1.9.20"
+rules = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-rules = { module = "androidx.test:rules", version.ref = "rules" }
+hamcrest-library = { module = "org.hamcrest:hamcrest-library", version.ref = "hamcrestLibrary" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -34,6 +40,8 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 androidx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 androidx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 mockito-kotlin = { module = "com.nhaarman.mockitokotlin2:mockito-kotlin", version.ref = "mockitoKotlin" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "mockwebserver" }
 squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 squareup-retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 squareup-okhttp3 = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3Version" }

@@ -74,10 +74,14 @@ dependencies {
     implementation(libs.androidx.coroutines.android)
     implementation(libs.androidx.navigation.fragment.ktx)
 
+    testImplementation(libs.mockk)
     testImplementation(libs.junit)
+    testImplementation(libs.mockwebserver)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.androidx.coroutines.test)
 
+    androidTestImplementation(libs.androidx.rules)
     androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.hamcrest.library)
     androidTestImplementation(libs.androidx.espresso.core)
 }

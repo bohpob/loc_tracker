@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
      * Updates the network icon based on the network type.
      * @param state The network type.
      */
-    private fun updateNetworkIcon(state: Int) {
+    internal fun updateNetworkIcon(state: Int) {
         // Determine if the network is 5G
         val is5GNetwork = when (state) {
             TelephonyManager.NETWORK_TYPE_NR,
